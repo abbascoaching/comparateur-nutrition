@@ -388,6 +388,30 @@
   }
   .advice-box strong { color: var(--green); }
 
+
+  /* ── CATEGORY SELECT ── */
+  .cat-select-wrap { margin-bottom: 10px; }
+  .cat-select {
+    width: 100%;
+    background: var(--surf);
+    border: 1px solid var(--border);
+    color: var(--grey);
+    font-family: var(--body);
+    font-size: 13px;
+    padding: 9px 12px;
+    outline: none;
+    cursor: pointer;
+    transition: border-color .2s;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23666' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    padding-right: 32px;
+  }
+  .cat-select:focus { border-color: var(--red-dim); color: var(--white); }
+  .side-b .cat-select:focus { border-color: #1e3d6a; }
+  .cat-select option { background: #1a1a1a; color: var(--white); }
+
   /* ── SCROLLBAR ── */
   ::-webkit-scrollbar { width: 4px; }
   ::-webkit-scrollbar-track { background: transparent; }
@@ -449,6 +473,40 @@
         <span class="panel-label-text">Aliment A</span>
       </div>
       <div class="panel-inner">
+<div class="cat-select-wrap">
+          <select class="cat-select" id="catA" onchange="filterCat('A')">
+            <option value="">Toutes les catégories</option>
+            <option>🥩 Viandes</option>
+            <option>🐟 Poissons &amp; Mer</option>
+            <option>🥚 Œufs &amp; Laitiers</option>
+            <option>🌾 Céréales &amp; Féculents</option>
+            <option>🫘 Légumineuses</option>
+            <option>🥦 Légumes</option>
+            <option>🍎 Fruits</option>
+            <option>🥜 Noix &amp; Oléagineux</option>
+            <option>🫙 Sauces &amp; Condiments</option>
+            <option>🍫 Snacks &amp; Sucreries</option>
+            <option>🥤 Boissons &amp; Protéines</option>
+            <option>🍽️ Autres</option>
+          </select>
+        </div>
+<div class="cat-select-wrap">
+          <select class="cat-select" id="catB" onchange="filterCat('B')">
+            <option value="">Toutes les catégories</option>
+            <option>🥩 Viandes</option>
+            <option>🐟 Poissons &amp; Mer</option>
+            <option>🥚 Œufs &amp; Laitiers</option>
+            <option>🌾 Céréales &amp; Féculents</option>
+            <option>🫘 Légumineuses</option>
+            <option>🥦 Légumes</option>
+            <option>🍎 Fruits</option>
+            <option>🥜 Noix &amp; Oléagineux</option>
+            <option>🫙 Sauces &amp; Condiments</option>
+            <option>🍫 Snacks &amp; Sucreries</option>
+            <option>🥤 Boissons &amp; Protéines</option>
+            <option>🍽️ Autres</option>
+          </select>
+        </div>
         <div class="search-input-wrap">
           <input id="searchA" type="text" placeholder="Rechercher un aliment…" autocomplete="off">
           <span class="search-icon">🔍</span>
@@ -894,14 +952,399 @@ const FOODS = {
   "Pain burger":[271.4,7.27,47.09,6.0]
 };
 
+const FOOD_CATS = {
+  "Poulet (blanc)":"🥩 Viandes",
+  "Poulet (cuisse)":"🥩 Viandes",
+  "Poulet (rôti)":"🥩 Viandes",
+  "Dinde (blanc)":"🥩 Viandes",
+  "Dinde (haché)":"🥩 Viandes",
+  "Steak haché 5%":"🥩 Viandes",
+  "Steak haché 10%":"🥩 Viandes",
+  "Steak haché 15%":"🥩 Viandes",
+  "Entrecôte bœuf":"🥩 Viandes",
+  "Bœuf (filet)":"🥩 Viandes",
+  "Bœuf (rôti)":"🥩 Viandes",
+  "Veau (escalope)":"🥩 Viandes",
+  "Porc (filet)":"🥩 Viandes",
+  "Côte de porc":"🥩 Viandes",
+  "Jambon blanc":"🥩 Viandes",
+  "Jambon sec":"🥩 Viandes",
+  "Bacon":"🥩 Viandes",
+  "Saucisse volaille":"🥩 Viandes",
+  "Merguez":"🥩 Viandes",
+  "Saumon":"🐟 Poissons & Mer",
+  "Saumon fumé":"🐟 Poissons & Mer",
+  "Thon (eau)":"🐟 Poissons & Mer",
+  "Thon (huile)":"🐟 Poissons & Mer",
+  "Cabillaud":"🐟 Poissons & Mer",
+  "Bar":"🐟 Poissons & Mer",
+  "Dorade":"🐟 Poissons & Mer",
+  "Crevettes":"🐟 Poissons & Mer",
+  "Sardines":"🐟 Poissons & Mer",
+  "Maquereau":"🐟 Poissons & Mer",
+  "Truite":"🐟 Poissons & Mer",
+  "Tilapia":"🐟 Poissons & Mer",
+  "Œuf entier":"🥚 Œufs & Laitiers",
+  "Blanc d'œuf":"🥚 Œufs & Laitiers",
+  "Fromage blanc 0%":"🥚 Œufs & Laitiers",
+  "Fromage blanc 3%":"🥚 Œufs & Laitiers",
+  "Yaourt grec 0%":"🥚 Œufs & Laitiers",
+  "Yaourt grec nature":"🥚 Œufs & Laitiers",
+  "Skyr":"🥚 Œufs & Laitiers",
+  "Cottage cheese":"🥚 Œufs & Laitiers",
+  "Lait écrémé":"🥚 Œufs & Laitiers",
+  "Lait demi-écrémé":"🥚 Œufs & Laitiers",
+  "Lait entier":"🥚 Œufs & Laitiers",
+  "Mozzarella":"🥚 Œufs & Laitiers",
+  "Parmesan":"🥚 Œufs & Laitiers",
+  "Gruyère":"🥚 Œufs & Laitiers",
+  "Feta":"🥚 Œufs & Laitiers",
+  "Ricotta":"🥚 Œufs & Laitiers",
+  "Cheddar":"🥚 Œufs & Laitiers",
+  "Emmental":"🥚 Œufs & Laitiers",
+  "Whey (1 dose)":"🥚 Œufs & Laitiers",
+  "Caséine (1 dose)":"🥚 Œufs & Laitiers",
+  "Protéines soja":"🫘 Légumineuses",
+  "Riz blanc (cuit)":"🌾 Céréales & Féculents",
+  "Riz complet (cuit)":"🌾 Céréales & Féculents",
+  "Riz basmati (cuit)":"🌾 Céréales & Féculents",
+  "Pâtes (cuites)":"🌾 Céréales & Féculents",
+  "Pâtes complètes (cuites)":"🌾 Céréales & Féculents",
+  "Avoine":"🌾 Céréales & Féculents",
+  "Pain blanc":"🌾 Céréales & Féculents",
+  "Pain complet":"🌾 Céréales & Féculents",
+  "Pain de seigle":"🌾 Céréales & Féculents",
+  "Baguette":"🌾 Céréales & Féculents",
+  "Quinoa (cuit)":"🌾 Céréales & Féculents",
+  "Boulgour (cuit)":"🌾 Céréales & Féculents",
+  "Lentilles (cuites)":"🫘 Légumineuses",
+  "Pois chiches (cuits)":"🫘 Légumineuses",
+  "Haricots blancs":"🫘 Légumineuses",
+  "Haricots rouges":"🫘 Légumineuses",
+  "Edamame":"🫘 Légumineuses",
+  "Pomme de terre (bouillie)":"🌾 Céréales & Féculents",
+  "Patate douce (cuite)":"🌾 Céréales & Féculents",
+  "Galettes de riz":"🌾 Céréales & Féculents",
+  "Muesli":"🍫 Snacks & Sucreries",
+  "Brocoli":"🥦 Légumes",
+  "Épinards":"🥦 Légumes",
+  "Haricots verts":"🫘 Légumineuses",
+  "Courgette":"🥦 Légumes",
+  "Poivron":"🥦 Légumes",
+  "Tomate":"🥦 Légumes",
+  "Concombre":"🥦 Légumes",
+  "Laitue":"🥚 Œufs & Laitiers",
+  "Carotte":"🥦 Légumes",
+  "Champignon":"🥦 Légumes",
+  "Asperge":"🥦 Légumes",
+  "Chou-fleur":"🥦 Légumes",
+  "Aubergine":"🥦 Légumes",
+  "Maïs":"🌾 Céréales & Féculents",
+  "Petits pois":"🥦 Légumes",
+  "Avocat":"🍎 Fruits",
+  "Banane":"🍎 Fruits",
+  "Pomme":"🍎 Fruits",
+  "Orange":"🍎 Fruits",
+  "Fraise":"🍎 Fruits",
+  "Mangue":"🍎 Fruits",
+  "Ananas":"🍎 Fruits",
+  "Kiwi":"🍎 Fruits",
+  "Poire":"🍎 Fruits",
+  "Myrtilles":"🍎 Fruits",
+  "Framboises":"🍎 Fruits",
+  "Cerise":"🍎 Fruits",
+  "Datte":"🍎 Fruits",
+  "Figue sèche":"🍎 Fruits",
+  "Amandes":"🥜 Noix & Oléagineux",
+  "Noix":"🥜 Noix & Oléagineux",
+  "Noisettes":"🥜 Noix & Oléagineux",
+  "Noix de cajou":"🥜 Noix & Oléagineux",
+  "Pistaches":"🥜 Noix & Oléagineux",
+  "Beurre de cacahuète":"🥚 Œufs & Laitiers",
+  "Graines de chia":"🥜 Noix & Oléagineux",
+  "Graines de lin":"🥜 Noix & Oléagineux",
+  "Graines de tournesol":"🥜 Noix & Oléagineux",
+  "Huile d'olive":"🥜 Noix & Oléagineux",
+  "Beurre":"🥚 Œufs & Laitiers",
+  "Tofu ferme":"🫘 Légumineuses",
+  "Tempeh":"🫘 Légumineuses",
+  "Seitan":"🫘 Légumineuses",
+  "Houmous":"🫙 Sauces & Condiments",
+  "Crème d'avoine":"🥚 Œufs & Laitiers",
+  "Concentré de tomate":"🥦 Légumes",
+  "Mayonnaise (sans matières grasses)":"🫙 Sauces & Condiments",
+  "Mayonnaise (allégée)":"🫙 Sauces & Condiments",
+  "Moutarde":"🫙 Sauces & Condiments",
+  "Sauce tomate":"🥦 Légumes",
+  "Mayonnaise":"🫙 Sauces & Condiments",
+  "Confiture d'abricot":"🍎 Fruits",
+  "Confiture de myrtille":"🍎 Fruits",
+  "Confiture de cerise":"🍎 Fruits",
+  "Confiture de prune":"🍎 Fruits",
+  "Confitude de framboise":"🍎 Fruits",
+  "Confiture de fraise":"🍎 Fruits",
+  "Marmelade":"🥜 Noix & Oléagineux",
+  "Farine de pomme de terre":"🌾 Céréales & Féculents",
+  "Miel":"🫙 Sauces & Condiments",
+  "Riz basmati (cru)":"🌾 Céréales & Féculents",
+  "Farine de riz (blanc)":"🌾 Céréales & Féculents",
+  "Banane séchée":"🍎 Fruits",
+  "Orge (cru)":"🌾 Céréales & Féculents",
+  "Couscous (cru)":"🌾 Céréales & Féculents",
+  "Farine de pâte":"🌾 Céréales & Féculents",
+  "Baies de Goji (sèches)":"🍎 Fruits",
+  "Farine de seigle (légère)":"🌾 Céréales & Féculents",
+  "Farine de sorgho":"🌾 Céréales & Féculents",
+  "Farine de riz (brun)":"🌾 Céréales & Féculents",
+  "Farine de blé blanche":"🌾 Céréales & Féculents",
+  "Riz brun (cru)":"🌾 Céréales & Féculents",
+  "Seigle":"🌾 Céréales & Féculents",
+  "Boulgour (cru)":"🌾 Céréales & Féculents",
+  "Farine de seigle (médium)":"🌾 Céréales & Féculents",
+  "Riz sauvage (cru)":"🌾 Céréales & Féculents",
+  "Pâtes (cru)":"🌾 Céréales & Féculents",
+  "Nouilles (cru)":"🌾 Céréales & Féculents",
+  "Raisins secs":"🍎 Fruits",
+  "Millet (cru)":"🌾 Céréales & Féculents",
+  "Sorgho (graine)":"🥜 Noix & Oléagineux",
+  "Pain d'épices":"🌾 Céréales & Féculents",
+  "Farine de blé complet":"🌾 Céréales & Féculents",
+  "Farine de sarrasin":"🌾 Céréales & Féculents",
+  "Épeautre (cru)":"🌾 Céréales & Féculents",
+  "Pain au maïs":"🌾 Céréales & Féculents",
+  "Farine de seigle (noire)":"🌾 Céréales & Féculents",
+  "Flocons d'avoine (cru)":"🌾 Céréales & Féculents",
+  "Sirop d'érable":"🫙 Sauces & Condiments",
+  "Son d'avoine":"🌾 Céréales & Féculents",
+  "Farine d'avoine":"🌾 Céréales & Féculents",
+  "Dattes séchées":"🍎 Fruits",
+  "Quinoa (cru)":"🌾 Céréales & Féculents",
+  "Haricot de Lima":"🫘 Légumineuses",
+  "Lentilles brunes (cru)":"🫘 Légumineuses",
+  "Lentilles corail (cru)":"🫘 Légumineuses",
+  "Pois chiches (cru)":"🫘 Légumineuses",
+  "Pois cassés (cru)":"🫘 Légumineuses",
+  "Haricots rouges (cru)":"🫘 Légumineuses",
+  "Chocolat noir 45-59%":"🍫 Snacks & Sucreries",
+  "Haricots blancs (cru)":"🫘 Légumineuses",
+  "Cacao en poudre":"🥜 Noix & Oléagineux",
+  "Lentilles noires (cru)":"🫘 Légumineuses",
+  "Chocolat au lait":"🥚 Œufs & Laitiers",
+  "Chocolat blanc":"🍫 Snacks & Sucreries",
+  "Abricot sec":"🍎 Fruits",
+  "Fèves (cru)":"🫘 Légumineuses",
+  "Pain blanc baguette":"🌾 Céréales & Féculents",
+  "Farine de pois chiche":"🌾 Céréales & Féculents",
+  "Pain pita complet":"🌾 Céréales & Féculents",
+  "Pain pita blanc":"🌾 Céréales & Féculents",
+  "Chocolat noir 60-69%":"🍫 Snacks & Sucreries",
+  "Germes de blé":"🌾 Céréales & Féculents",
+  "Châtaigne":"🌾 Céréales & Féculents",
+  "Pain noir":"🌾 Céréales & Féculents",
+  "Pain de campagne":"🌾 Céréales & Féculents",
+  "Chocolat noir 70-85%":"🍫 Snacks & Sucreries",
+  "Pain d'orge":"🌾 Céréales & Féculents",
+  "Lentilles vertes (cru)":"🫘 Légumineuses",
+  "Pain multigraines":"🌾 Céréales & Féculents",
+  "Flageolet (cru)":"🫘 Légumineuses",
+  "Pain au son":"🌾 Céréales & Féculents",
+  "Manioc":"🌾 Céréales & Féculents",
+  "Farine de soja dégraissée":"🌾 Céréales & Féculents",
+  "Banane plantain (crue)":"🍎 Fruits",
+  "Chocolat noir 90%":"🍫 Snacks & Sucreries",
+  "Igname":"🌾 Céréales & Féculents",
+  "Farine de soja":"🌾 Céréales & Féculents",
+  "Fruit à pain":"🌾 Céréales & Féculents",
+  "Taro":"🌾 Céréales & Féculents",
+  "Épeautre (cuit)":"🌾 Céréales & Féculents",
+  "Graines de sésame":"🥜 Noix & Oléagineux",
+  "Couscous (cuit)":"🌾 Céréales & Féculents",
+  "Haricots rouges (cuits)":"🫘 Légumineuses",
+  "Patate douce":"🌾 Céréales & Féculents",
+  "Lentilles brunes (cuites)":"🫘 Légumineuses",
+  "Figue fraîche":"🍎 Fruits",
+  "Grenade":"🍎 Fruits",
+  "Kaki":"🍎 Fruits",
+  "Raisins":"🍎 Fruits",
+  "Panais":"🌾 Céréales & Féculents",
+  "Topinambour":"🥦 Légumes",
+  "Échalote":"🥦 Légumes",
+  "Litchi":"🍎 Fruits",
+  "Cerises":"🍎 Fruits",
+  "Cacahuètes":"🥜 Noix & Oléagineux",
+  "Pomme de terre":"🌾 Céréales & Féculents",
+  "Cassis":"🍎 Fruits",
+  "Noix de coco":"🥜 Noix & Oléagineux",
+  "Compote de pommes sans sucre":"🍎 Fruits",
+  "Goyave":"🍎 Fruits",
+  "Poireau":"🥦 Légumes",
+  "Noix de Pécans":"🥜 Noix & Oléagineux",
+  "Groseille":"🍎 Fruits",
+  "Pignon de pin":"🥜 Noix & Oléagineux",
+  "Canneberge":"🍎 Fruits",
+  "Clémentine":"🍎 Fruits",
+  "Noix du Brésil":"🥜 Noix & Oléagineux",
+  "Butternut":"🥦 Légumes",
+  "Prune":"🍎 Fruits",
+  "Abricot":"🍎 Fruits",
+  "Papaye":"🍎 Fruits",
+  "Graines de courge":"🥦 Légumes",
+  "Artichaut":"🥦 Légumes",
+  "Oignons rouges":"🥦 Légumes",
+  "Carottes":"🥦 Légumes",
+  "Betterave":"🥦 Légumes",
+  "Pêche":"🍎 Fruits",
+  "Citron":"🍎 Fruits",
+  "Choux de Bruxelles":"🥦 Légumes",
+  "Graines de chanvre":"🥜 Noix & Oléagineux",
+  "Melon":"🍎 Fruits",
+  "Oignons":"🥦 Légumes",
+  "Courge d'hiver":"🥦 Légumes",
+  "Fraises":"🍎 Fruits",
+  "Pastèque":"🍎 Fruits",
+  "Chou rouge":"🥦 Légumes",
+  "Fenouil":"🥦 Légumes",
+  "Citrouille":"🥜 Noix & Oléagineux",
+  "Navet":"🥦 Légumes",
+  "Poivron jaune":"🥦 Légumes",
+  "Poivron rouge":"🥦 Légumes",
+  "Chou":"🥦 Légumes",
+  "Lait de coco":"🥚 Œufs & Laitiers",
+  "Noix de Macadamia":"🥜 Noix & Oléagineux",
+  "Olive":"🥜 Noix & Oléagineux",
+  "Huître":"🐟 Poissons & Mer",
+  "Kéfir":"🥚 Œufs & Laitiers",
+  "Poivron vert":"🥦 Légumes",
+  "Rhubarbe":"🐟 Poissons & Mer",
+  "Yaourt lait entier":"🥚 Œufs & Laitiers",
+  "Asperges":"🥦 Légumes",
+  "Foie de bœuf":"🥩 Viandes",
+  "Blette":"🥦 Légumes",
+  "Moules":"🐟 Poissons & Mer",
+  "Radis":"🥦 Légumes",
+  "Endive":"🥦 Légumes",
+  "Salade romaine":"🥦 Légumes",
+  "Champignons de Paris":"🥦 Légumes",
+  "Céleri":"🥦 Légumes",
+  "Laitue iceberg":"🥚 Œufs & Laitiers",
+  "Foie de veau":"🥩 Viandes",
+  "Tofu":"🫘 Légumineuses",
+  "Crème épaisse":"🥚 Œufs & Laitiers",
+  "Foie de porc":"🥩 Viandes",
+  "Pak-choï":"🥦 Légumes",
+  "Gouda":"🥚 Œufs & Laitiers",
+  "Escargot":"🐟 Poissons & Mer",
+  "Langue de veau":"🥩 Viandes",
+  "Foie d'agneau":"🥩 Viandes",
+  "Foie gras de canard":"🥩 Viandes",
+  "Lait de soja":"🥚 Œufs & Laitiers",
+  "Foie de poulet":"🥩 Viandes",
+  "Viande de canard":"🥩 Viandes",
+  "Comté":"🥚 Œufs & Laitiers",
+  "Mimolette":"🥚 Œufs & Laitiers",
+  "Anchois":"🐟 Poissons & Mer",
+  "Camembert":"🥚 Œufs & Laitiers",
+  "Roquefort":"🥚 Œufs & Laitiers",
+  "Homard":"🐟 Poissons & Mer",
+  "Hareng":"🐟 Poissons & Mer",
+  "Thon (cru)":"🐟 Poissons & Mer",
+  "Sole":"🐟 Poissons & Mer",
+  "Anguille":"🐟 Poissons & Mer",
+  "Crevettes roses":"🐟 Poissons & Mer",
+  "Calamar":"🐟 Poissons & Mer",
+  "Poulpe":"🐟 Poissons & Mer",
+  "Seiche":"🐟 Poissons & Mer",
+  "Coque":"🐟 Poissons & Mer",
+  "Palourde":"🐟 Poissons & Mer",
+  "Coquille Saint-Jacques":"🐟 Poissons & Mer",
+  "Steak haché 5% MG":"🥩 Viandes",
+  "Steak haché 10% MG":"🥩 Viandes",
+  "Steak haché 15% MG":"🥩 Viandes",
+  "Steak haché 20% MG":"🥩 Viandes",
+  "Bresaola":"🥩 Viandes",
+  "Jambon cuit":"🥩 Viandes",
+  "Coppa":"🥩 Viandes",
+  "Lardons crus":"🥩 Viandes",
+  "Mortadelle":"🥩 Viandes",
+  "Salami":"🥩 Viandes",
+  "Saucisse de Toulouse":"🥩 Viandes",
+  "Boulettes de bœuf cuites":"🥩 Viandes",
+  "Andouille":"🥩 Viandes",
+  "Blanc de poulet (tranché)":"🥩 Viandes",
+  "Poulet cuit":"🥩 Viandes",
+  "Filet de bacon":"🥩 Viandes",
+  "Boudin noir":"🥩 Viandes",
+  "Bœuf (filet maigre)":"🥩 Viandes",
+  "Bœuf (bifteck)":"🥩 Viandes",
+  "Cheval":"🥩 Viandes",
+  "Lapin":"🥩 Viandes",
+  "Faisan":"🥩 Viandes",
+  "Sanglier":"🥩 Viandes",
+  "Veau (filet maigre)":"🥩 Viandes",
+  "Langue d'agneau":"🥩 Viandes",
+  "Cœur de bœuf":"🥩 Viandes",
+  "Rein de bœuf":"🥩 Viandes",
+  "Beurre salé":"🥚 Œufs & Laitiers",
+  "Huile de coco":"🥜 Noix & Oléagineux",
+  "Huile de lin":"🥜 Noix & Oléagineux",
+  "Huile de noix":"🥜 Noix & Oléagineux",
+  "Huile de tournesol":"🥜 Noix & Oléagineux",
+  "Huile de sésame":"🥜 Noix & Oléagineux",
+  "Huile de colza":"🥜 Noix & Oléagineux",
+  "Huile d'avocat":"🍎 Fruits",
+  "Graisse de canard":"🥩 Viandes",
+  "Graisse d'oie":"🥩 Viandes",
+  "Margarine 80%":"🥜 Noix & Oléagineux",
+  "Crème légère":"🥚 Œufs & Laitiers",
+  "Topinambour cuit":"🥦 Légumes",
+  "Purée de pommes de terre":"🍎 Fruits",
+  "Chips nature":"🍫 Snacks & Sucreries",
+  "Frites surgelées":"🌾 Céréales & Féculents",
+  "Brioche":"🌾 Céréales & Féculents",
+  "Croissant":"🌾 Céréales & Féculents",
+  "Pain au chocolat":"🌾 Céréales & Féculents",
+  "Ketchup":"🫙 Sauces & Condiments",
+  "Sauce soja":"🫘 Légumineuses",
+  "Sauce barbecue":"🐟 Poissons & Mer",
+  "Sauce pesto":"🫙 Sauces & Condiments",
+  "Sauce bolognaise":"🫙 Sauces & Condiments",
+  "Sauce béchamel":"🫙 Sauces & Condiments",
+  "Sauce teriyaki":"🫙 Sauces & Condiments",
+  "Sauce vinaigrette":"🫙 Sauces & Condiments",
+  "Sauce aïoli":"🫙 Sauces & Condiments",
+  "Vinaigre balsamique":"🫙 Sauces & Condiments",
+  "Potimarron":"🥦 Légumes",
+  "Sushi (saumon)":"🐟 Poissons & Mer",
+  "Sushi (thon)":"🐟 Poissons & Mer",
+  "Sushi roll California":"🐟 Poissons & Mer",
+  "Whey 70%":"🥚 Œufs & Laitiers",
+  "Isolat de whey":"🥚 Œufs & Laitiers",
+  "Leerdammer light":"🥚 Œufs & Laitiers",
+  "Beurre d'amandes":"🥚 Œufs & Laitiers",
+  "Riz blanc cuit":"🌾 Céréales & Féculents",
+  "Weetabix":"🌾 Céréales & Féculents",
+  "Crème de riz":"🥚 Œufs & Laitiers",
+  "Carré Frais 0%":"🥚 Œufs & Laitiers",
+  "Thon en boite":"🐟 Poissons & Mer",
+  "Maltodextrine":"🌾 Céréales & Féculents",
+  "Wrap de blé":"🌾 Céréales & Féculents",
+  "Mozzarella protéinée":"🥚 Œufs & Laitiers",
+  "Galette de riz":"🌾 Céréales & Féculents",
+  "Yaourt HIPRO 0%":"🥚 Œufs & Laitiers",
+  "Tranche de jambon":"🥩 Viandes",
+  "Pain burger":"🌾 Céréales & Féculents"
+};
+
 let selA=null,selB=null,qA=100,qB=100,mode='prot';
 
 function setupSearch(s){
   const inp=document.getElementById('search'+s),drp=document.getElementById('drop'+s);
   inp.addEventListener('input',()=>{
     const q=inp.value.trim().toLowerCase();
-    if(!q){drp.innerHTML='';drp.classList.remove('open');return;}
-    const hits=Object.keys(FOODS).filter(n=>n.toLowerCase().includes(q)).slice(0,12);
+    const cat=document.getElementById('cat'+s).value;
+    if(!q&&!cat){drp.innerHTML='';drp.classList.remove('open');return;}
+    const pool=Object.keys(FOODS).filter(n=>!cat||FOOD_CATS[n]===cat);
+    const hits=pool.filter(n=>!q||n.toLowerCase().includes(q)).slice(0,16);
     drp.innerHTML=hits.map(n=>{
       const d=FOODS[n];
       const safe=n.replace(/&/g,'&amp;').replace(/"/g,'&quot;');
@@ -1022,6 +1465,9 @@ function barRow(lbl,vA,vB,unit,nA,nB,pA,pB){
     <div class="bar-row"><div class="bar-tag a">${tA}</div><div class="bar-track"><div class="bar-fill a" style="width:${pA.toFixed(1)}%">${vA.toFixed(1)}</div></div><div class="bar-unit">${unit}</div></div>
     <div class="bar-row"><div class="bar-tag b">${tB}</div><div class="bar-track"><div class="bar-fill b" style="width:${pB.toFixed(1)}%">${vB.toFixed(1)}</div></div><div class="bar-unit">${unit}</div></div>
   </div>`;
+}
+function filterCat(s){
+  document.getElementById('search'+s).dispatchEvent(new Event('input'));
 }
 setupSearch('A'); setupSearch('B');
 </script>
