@@ -916,8 +916,16 @@ function setupSearch(s){
   document.addEventListener('click',e=>{if(!inp.contains(e.target)&&!drp.contains(e.target))drp.classList.remove('open');});
 }
 function selectFood(s,name){
+  // Lookup with fallback: try exact key, then normalize whitespace/apostrophes
+  let d=FOODS[name];
+  if(!d){
+    const norm=k=>k.toLowerCase().replace(/[‘’ʼ]/g,"'").trim();
+    const nm=norm(name);
+    const key=Object.keys(FOODS).find(k=>norm(k)===nm);
+    if(key){name=key;d=FOODS[key];}
+  }
+  if(!d){console.warn('Aliment introuvable:',name);return;}
   if(s==='A'){selA=name;qA=100;}else{selB=name;qB=100;}
-  const d=FOODS[name];
   document.getElementById('pillName'+s).textContent=name;
   document.getElementById('pillKcal'+s).textContent=`${d[0]} kcal · ${d[1]}g prot · ${d[2]}g glu · ${d[3]}g lip /100g`;
   document.getElementById('pill'+s).style.display='block';
